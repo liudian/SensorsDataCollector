@@ -1,0 +1,38 @@
+syntax = "proto3";
+
+package sensors_data_collector;
+
+message Vector3f {
+    float x = 1;
+    float y = 2;
+    float z = 3;
+}
+
+message IMUData {
+    Vector3f rotationRate = 1;
+    Vector3f acceleration = 2;
+    Vector3f gravity = 3;
+}
+
+message IMUSampler {
+    int32 samplingRate = 1;
+    repeated IMUData data = 2;
+}
+
+message AudioSampler {
+    enum Type {
+        AAC = 0;
+    }
+    Type type = 1;
+    bytes data = 2;
+}
+
+message SensorsData {
+    AudioSampler audio = 1;
+    IMUSampler imu = 2;
+}
+
+message LabeledSensorsData {
+    string label = 1;
+    SensorsData sensorsData = 2;
+}

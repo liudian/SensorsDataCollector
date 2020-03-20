@@ -17,19 +17,22 @@ private let dateFormatter: DateFormatter = {
 
 struct ContentView: View {
     @State private var dates = [Date]()
+    @State private var collectDataViewPresented = false
 
     var body: some View {
         NavigationView {
             MasterView(dates: $dates)
-                .navigationBarTitle(Text("Master"))
+                .navigationBarTitle(Text("采样列表"))
                 .navigationBarItems(
                     leading: EditButton(),
                     trailing: Button(
                         action: {
-                            withAnimation { self.dates.insert(Date(), at: 0) }
+                            self.collectDataViewPresented = true
                         }
                     ) {
                         Image(systemName: "plus")
+                    }.sheet(isPresented: self.$collectDataViewPresented) {
+                        CollectDataView()
                     }
                 )
             DetailView()
@@ -69,7 +72,11 @@ struct DetailView: View {
     }
 }
 
-
+struct CollectDataView: View {
+    var body: some View {
+        Text("Hello View")
+    }
+}
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
         ContentView()
