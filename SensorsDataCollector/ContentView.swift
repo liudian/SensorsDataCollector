@@ -21,7 +21,7 @@ struct ContentView: View {
 
     var body: some View {
         NavigationView {
-            MasterView(dates: $dates)
+            SensorsDataListView(dates: $dates)
                 .navigationBarTitle(Text("采样列表"))
                 .navigationBarItems(
                     leading: EditButton(),
@@ -35,19 +35,19 @@ struct ContentView: View {
                         CollectDataView()
                     }
                 )
-            DetailView()
+            SensorsDataView()
         }.navigationViewStyle(DoubleColumnNavigationViewStyle())
     }
 }
 
-struct MasterView: View {
+struct SensorsDataListView: View {
     @Binding var dates: [Date]
 
     var body: some View {
         List {
             ForEach(dates, id: \.self) { date in
                 NavigationLink(
-                    destination: DetailView(selectedDate: date)
+                    destination: SensorsDataView(selectedDate: date)
                 ) {
                     Text("\(date, formatter: dateFormatter)")
                 }
@@ -58,7 +58,7 @@ struct MasterView: View {
     }
 }
 
-struct DetailView: View {
+struct SensorsDataView: View {
     var selectedDate: Date?
 
     var body: some View {
