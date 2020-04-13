@@ -194,6 +194,38 @@ struct SensorsDataCollector_LabeledSensorsData {
   fileprivate var _sensorsData: SensorsDataCollector_SensorsData? = nil
 }
 
+struct SensorsDataCollector_Label {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var audioBegin: Float = 0
+
+  var audioEnd: Float = 0
+
+  var imuBegin: Int32 = 0
+
+  var imuEnd: Int32 = 0
+
+  var label: String = String()
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
+struct SensorsDataCollector_DataLabels {
+  // SwiftProtobuf.Message conformance is added in an extension below. See the
+  // `Message` and `Message+*Additions` files in the SwiftProtobuf library for
+  // methods supported on all messages.
+
+  var labels: [SensorsDataCollector_Label] = []
+
+  var unknownFields = SwiftProtobuf.UnknownStorage()
+
+  init() {}
+}
+
 // MARK: - Code below here is support for the SwiftProtobuf runtime.
 
 fileprivate let _protobuf_package = "sensors_data_collector"
@@ -421,6 +453,88 @@ extension SensorsDataCollector_LabeledSensorsData: SwiftProtobuf.Message, SwiftP
   static func ==(lhs: SensorsDataCollector_LabeledSensorsData, rhs: SensorsDataCollector_LabeledSensorsData) -> Bool {
     if lhs.label != rhs.label {return false}
     if lhs._sensorsData != rhs._sensorsData {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SensorsDataCollector_Label: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".Label"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "audioBegin"),
+    2: .same(proto: "audioEnd"),
+    3: .same(proto: "imuBegin"),
+    4: .same(proto: "imuEnd"),
+    5: .same(proto: "label"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeSingularFloatField(value: &self.audioBegin)
+      case 2: try decoder.decodeSingularFloatField(value: &self.audioEnd)
+      case 3: try decoder.decodeSingularInt32Field(value: &self.imuBegin)
+      case 4: try decoder.decodeSingularInt32Field(value: &self.imuEnd)
+      case 5: try decoder.decodeSingularStringField(value: &self.label)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if self.audioBegin != 0 {
+      try visitor.visitSingularFloatField(value: self.audioBegin, fieldNumber: 1)
+    }
+    if self.audioEnd != 0 {
+      try visitor.visitSingularFloatField(value: self.audioEnd, fieldNumber: 2)
+    }
+    if self.imuBegin != 0 {
+      try visitor.visitSingularInt32Field(value: self.imuBegin, fieldNumber: 3)
+    }
+    if self.imuEnd != 0 {
+      try visitor.visitSingularInt32Field(value: self.imuEnd, fieldNumber: 4)
+    }
+    if !self.label.isEmpty {
+      try visitor.visitSingularStringField(value: self.label, fieldNumber: 5)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SensorsDataCollector_Label, rhs: SensorsDataCollector_Label) -> Bool {
+    if lhs.audioBegin != rhs.audioBegin {return false}
+    if lhs.audioEnd != rhs.audioEnd {return false}
+    if lhs.imuBegin != rhs.imuBegin {return false}
+    if lhs.imuEnd != rhs.imuEnd {return false}
+    if lhs.label != rhs.label {return false}
+    if lhs.unknownFields != rhs.unknownFields {return false}
+    return true
+  }
+}
+
+extension SensorsDataCollector_DataLabels: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  static let protoMessageName: String = _protobuf_package + ".DataLabels"
+  static let _protobuf_nameMap: SwiftProtobuf._NameMap = [
+    1: .same(proto: "labels"),
+  ]
+
+  mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
+    while let fieldNumber = try decoder.nextFieldNumber() {
+      switch fieldNumber {
+      case 1: try decoder.decodeRepeatedMessageField(value: &self.labels)
+      default: break
+      }
+    }
+  }
+
+  func traverse<V: SwiftProtobuf.Visitor>(visitor: inout V) throws {
+    if !self.labels.isEmpty {
+      try visitor.visitRepeatedMessageField(value: self.labels, fieldNumber: 1)
+    }
+    try unknownFields.traverse(visitor: &visitor)
+  }
+
+  static func ==(lhs: SensorsDataCollector_DataLabels, rhs: SensorsDataCollector_DataLabels) -> Bool {
+    if lhs.labels != rhs.labels {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }

@@ -36,3 +36,15 @@ message LabeledSensorsData {
     string label = 1;
     SensorsData sensorsData = 2;
 }
+
+message Label {
+    float audioBegin = 1;
+    float audioEnd = 2;
+    int32 imuBegin = 3;
+    int32 imuEnd = 4;
+    string label = 5;
+}
+
+message DataLabels {
+    repeated Label labels = 1;
+}

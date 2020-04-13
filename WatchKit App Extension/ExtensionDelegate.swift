@@ -7,11 +7,26 @@
 //
 
 import WatchKit
+import WatchConnectivity
+import CoreMotion
 
-class ExtensionDelegate: NSObject, WKExtensionDelegate {
+class ExtensionDelegate: NSObject, WKExtensionDelegate, WCSessionDelegate {
+    func session(_ session: WCSession, activationDidCompleteWith activationState: WCSessionActivationState, error: Error?) {
+        print("WatchKit WCSession active")
+    }
+    
+    
+    
 
     func applicationDidFinishLaunching() {
         // Perform any final initialization of your application.
+        print("WatchKit launched")
+        WCSession.default.delegate = self
+        WCSession.default.activate()
+        
+        
+        
+        
     }
 
     func applicationDidBecomeActive() {
